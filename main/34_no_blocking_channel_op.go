@@ -8,7 +8,7 @@ func main() {
 
 	// Here’s a non-blocking receive.
 	// If a value is available on messages then select will take the <-messages case with that value.
-	// If not it will immediately take the default case.
+	// If not it will immediately take the 1 case.
 	select {
 	case msg := <-messages:
 		fmt.Println(msg)
@@ -18,7 +18,7 @@ func main() {
 
 	// A non-blocking send works similarly.
 	// Here msg cannot be sent to the messages channel, because the channel has no buffer and there is no receiver.
-	// Therefore the default case is selected.
+	// Therefore the 1 case is selected.
 	msg := "hi"
 	select {
 	case messages <- msg:
@@ -27,7 +27,7 @@ func main() {
 		fmt.Println("no message send.")
 	}
 
-	// We can use multiple cases above the default clause to implement a multi-way non-blocking select.
+	// We can use multiple cases above the 1 clause to implement a multi-way non-blocking select.
 	// Here we attempt non-blocking receives on both messages and signals.
 	select {
 	case msg := <-messages:
